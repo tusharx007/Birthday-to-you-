@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret Diary For Sunanda ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+height:100vh;
+background:linear-gradient(135deg,#141E30,#243B55);
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+font-family:'Poppins',sans-serif;
+color:white;
+}
+
+/* Watermark */
+body::before{
+content:"Sunanda ❤️ Sunanda ❤️ Sunanda ❤️";
+position:absolute;
+font-size:40px;
+color:rgba(255,255,255,0.05);
+width:100%;
+text-align:center;
+top:40%;
+transform:rotate(-20deg);
+}
+
+/* Countdown */
+#countdown{
+font-size:90px;
+font-weight:bold;
+}
+
+/* Gift */
+#gift{
+font-size:90px;
+cursor:pointer;
+animation:bounce 1.5s infinite;
+display:none;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
+}
+
+/* Password Section */
+#passwordBox{
+display:none;
+flex-direction:column;
+align-items:center;
+}
+
+input{
+padding:12px;
+border-radius:20px;
+border:none;
+outline:none;
+text-align:center;
+}
+
+button{
+margin-top:15px;
+padding:8px 20px;
+border:none;
+background:#243B55;
+color:white;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* Lock animation */
+.lock{
+font-size:60px;
+margin-bottom:10px;
+transition:0.5s;
+}
+
+.unlock{
+transform:rotate(-20deg) scale(1.2);
+color:lightgreen;
+}
+
+/* Book */
+.book{
+width:340px;
+height:460px;
+perspective:1500px;
+display:none;
+}
+
+.page{
+width:100%;
+height:100%;
+background:#fff8e7;
+position:absolute;
+border-radius:10px;
+box-shadow:0 0 25px rgba(0,0,0,0.5);
+padding:30px;
+backface-visibility:hidden;
+transform-origin:left;
+transition:transform 1s;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+font-family:'Playfair Display',serif;
+font-size:22px;
+color:#333;
+}
+
+.cover{
+background:#ffe4c4;
+}
+
+.flipped{
+transform:rotateY(-180deg);
+}
+
+/* Floating hearts */
+.heart{
+position:absolute;
+color:#ff4d6d;
+font-size:18px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* Tulip petals */
+.petal{
+position:absolute;
+font-size:20px;
+animation:fall 8s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh) rotate(0deg);}
+100%{transform:translateY(110vh) rotate(360deg);}
+}
+</style>
+</head>
+<body>
+
+<div id="countdown">5</div>
+
+<div id="gift">🎁</div>
+
+<div id="passwordBox">
+<div class="lock" id="lockIcon">🔒</div>
+<input type="password" id="passInput" placeholder="Enter Secret Password">
+<button onclick="checkPassword()">Unlock</button>
+</div>
+
+<div class="book" id="book">
+
+<div class="page cover" id="page0">
+<h2>🌷 For Sunanda 🌷</h2>
+<p>Click to Open</p>
+<button onclick="flipPage(0)">Open Diary</button>
+</div>
+
+<div class="page" id="page1">
+You are the most beautiful chapter of my life ❤️
+<button onclick="flipPage(1)">Next</button>
+</div>
+
+<div class="page" id="page2">
+Your smile is my favorite sunrise 🌅
+<button onclick="flipPage(2)">Next</button>
+</div>
+
+<div class="page" id="page3">
+With you, even ordinary days feel magical ✨
+<button onclick="flipPage(3)">Next</button>
+</div>
+
+<div class="page" id="page4">
+May this year bring you endless happiness 💖
+<button onclick="flipPage(4)">Next</button>
+</div>
+
+<div class="page" id="page5">
+Forever starts with you, Sunanda 💍❤️
+</div>
+
+</div>
+
+<audio id="music" src="music.mp3"></audio>
+<audio id="flipSound" src="flip.mp3"></audio>
+<audio id="unlockSound" src="unlock.mp3"></audio>
+
+<script>
+
+let count=5;
+let countdown=document.getElementById("countdown");
+let gift=document.getElementById("gift");
+let passwordBox=document.getElementById("passwordBox");
+let book=document.getElementById("book");
+let music=document.getElementById("music");
+let flipSound=document.getElementById("flipSound");
+let unlockSound=document.getElementById("unlockSound");
+let lockIcon=document.getElementById("lockIcon");
+
+let timer=setInterval(()=>{
+count--;
+countdown.innerText=count;
+if(count==0){
+clearInterval(timer);
+countdown.style.display="none";
+gift.style.display="block";
+music.play();
+}
+},1000);
+
+gift.onclick=function(){
+gift.style.display="none";
+passwordBox.style.display="flex";
+}
+
+function checkPassword(){
+let pass=document.getElementById("passInput").value;
+if(pass==="Tushar77"){
+lockIcon.classList.add("unlock");
+unlockSound.play();
+setTimeout(()=>{
+passwordBox.style.display="none";
+book.style.display="block";
+},1000);
+}else{
+lockIcon.innerText="❌";
+setTimeout(()=>lockIcon.innerText="🔒",800);
+}
+}
+
+function flipPage(num){
+flipSound.play();
+document.getElementById("page"+num).classList.add("flipped");
+}
+
+// Floating hearts
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerText="💖";
+heart.style.left=Math.random()*100+"vw";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},500);
+
+// Tulip petals
+setInterval(()=>{
+let petal=document.createElement("div");
+petal.className="petal";
+petal.innerText="🌷";
+petal.style.left=Math.random()*100+"vw";
+document.body.appendChild(petal);
+setTimeout(()=>petal.remove(),8000);
+},1000);
+
+</script>
+
+</body>
+</html>
